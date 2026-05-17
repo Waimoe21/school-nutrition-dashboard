@@ -99,11 +99,11 @@ if page == "Home":
     with col2:
         # Banner image
         if os.path.exists(BANNER_PATH):
-            st.image(BANNER_PATH, use_container_width=True)
+            st.image(BANNER_PATH, width=700)
 
         # Poster image (optional second visual)
         if os.path.exists(POSTER_PATH):
-            st.image(POSTER_PATH, use_container_width=True)
+            st.image(POSTER_PATH, width=1200)
 
 # ----------------------------
 # PAGE ROUTING
