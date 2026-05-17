@@ -94,16 +94,14 @@ POSTER_PATH = os.path.join(BASE_DIR, "pages", "poster.jpg")
 if page == "Home":
     st.title("School Nutrition Dashboard")
 
-    col1, col2, col3 = st.columns([0.5, 3, 0.5])
+    col1, col2, col3 = st.columns([1, 4, 1])
 
     with col2:
-        # Banner image
         if os.path.exists(BANNER_PATH):
-            st.image(BANNER_PATH, width=700)
+            st.image(BANNER_PATH, width=1000)
 
-        # Poster image (optional second visual)
         if os.path.exists(POSTER_PATH):
-            st.image(POSTER_PATH, width=1200)
+            st.image(POSTER_PATH, width=1500)
 
 # ----------------------------
 # PAGE ROUTING
