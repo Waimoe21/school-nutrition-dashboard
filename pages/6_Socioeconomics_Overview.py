@@ -6,7 +6,7 @@ import os
 # ----------------------------
 # BASE PATH (DEPLOYMENT SAFE)
 # ----------------------------
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ----------------------------
 # PAGE CONFIG
@@ -47,18 +47,19 @@ st.markdown(
 )
 
 # ----------------------------
-# TITLE + BANNER (FIXED PATH)
+# TITLE + BANNER (DEPLOYMENT SAFE FIX)
 # ----------------------------
 st.title("Socioeconomics Overview")
 
 col1, col2, col3 = st.columns([0.5, 3, 0.5])
 
 with col2:
-    st.image(
-        os.path.join(BASE_DIR, "DESIGNING.png"),
-        use_container_width=True
-    )
+    banner_path = os.path.join("pages", "banner.png")
 
+    if os.path.exists(banner_path):
+        st.image(banner_path, use_container_width=True)
+    else:
+        st.error(f"Missing banner image: {banner_path}")
 # ----------------------------
 # LOAD DATA (FIXED PATH)
 # ----------------------------

@@ -8,7 +8,7 @@ import os
 import importlib.util
 
 # ----------------------------
-# BASE DIRECTORY (FIXED)
+# BASE DIRECTORY
 # ----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -54,7 +54,7 @@ st.markdown(
 )
 
 # ----------------------------
-# SIDEBAR MENU (ONLY MENU)
+# SIDEBAR MENU
 # ----------------------------
 st.sidebar.title("Menu")
 
@@ -83,6 +83,12 @@ def run_page(path):
     spec.loader.exec_module(module)
 
 # ----------------------------
+# IMAGE PATHS (FIXED)
+# ----------------------------
+BANNER_PATH = os.path.join(BASE_DIR, "pages", "banner.png")
+POSTER_PATH = os.path.join(BASE_DIR, "pages", "poster.jpg")
+
+# ----------------------------
 # HOME PAGE
 # ----------------------------
 if page == "Home":
@@ -91,14 +97,13 @@ if page == "Home":
     col1, col2, col3 = st.columns([0.5, 3, 0.5])
 
     with col2:
-        st.image(
-            os.path.join(
-                BASE_DIR,
-                "pages",
-                "An Exploratory Study of Student Dietary Patterns and Nutrition for School Lunch Program Development in Basic Education Schools in Magway, Myanmar.jpg"
-            ),
-            use_container_width=True
-        )
+        # Banner image
+        if os.path.exists(BANNER_PATH):
+            st.image(BANNER_PATH, use_container_width=True)
+
+        # Poster image (optional second visual)
+        if os.path.exists(POSTER_PATH):
+            st.image(POSTER_PATH, use_container_width=True)
 
 # ----------------------------
 # PAGE ROUTING

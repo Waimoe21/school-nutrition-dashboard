@@ -15,7 +15,9 @@ import os
 BASE_DIR = os.path.dirname(__file__)
 
 dataset_path = os.path.join(BASE_DIR, "dataset.csv")
-banner_path = os.path.join(BASE_DIR, "DESIGNING.png")
+
+# FIXED BANNER PATH
+banner_path = os.path.join("pages", "banner.png")
 
 # =========================================================
 # PAGE CONFIG
@@ -66,20 +68,22 @@ NEU_COLOR2 = "#FFFFFF"
 POS_COLOR = "#00bf63"
 
 # =========================================================
-# LOAD DATA (FIXED PATH)
+# LOAD DATA
 # =========================================================
 df = pd.read_csv(dataset_path)
 
 # =========================================================
-# TITLE + BANNER (FIXED PATH)
+# TITLE + BANNER (FIXED)
 # =========================================================
 st.title("Inferential Analysis")
 
 col1, col2, col3 = st.columns([0.5, 3, 0.5])
 
 with col2:
-    st.image(banner_path, use_container_width=True)
-
+    if os.path.exists(banner_path):
+        st.image(banner_path, use_container_width=True)
+    else:
+        st.error(f"Missing banner image: {banner_path}")
 # =========================================================
 # VARIABLES
 # =========================================================
