@@ -57,12 +57,15 @@ col1, col2, col3 = st.columns([0.5, 3, 0.5])
 
 with col2:
     banner_path = os.path.join(BASE_DIR, "banner.png")
-    banner_path = os.path.normpath(banner_path)
+    banner_path = os.path.abspath(banner_path)
+
+    st.write("DEBUG banner path:", banner_path)
 
     if os.path.isfile(banner_path):
         st.image(banner_path, use_container_width=True)
     else:
-        st.error(f"Missing file: {banner_path}")
+        st.error("Banner not found")
+        st.write("Checked path:", banner_path)
 # ----------------------------
 # LOAD DATA (FIXED PATH)
 # ----------------------------
