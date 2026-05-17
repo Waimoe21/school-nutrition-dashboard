@@ -55,6 +55,14 @@ st.title("Overview")
 # ----------------------------
 col1, col2, col3 = st.columns([0.5, 3, 0.5])
 
+with col2:
+    banner_path = os.path.join("pages", "banner.png")
+
+    if os.path.exists(banner_path):
+        st.image(banner_path, width=700)
+    else:
+        st.error(f"Missing file: {banner_path}")
+
 
 # ----------------------------
 # LOAD DATA (FIXED PATH)
