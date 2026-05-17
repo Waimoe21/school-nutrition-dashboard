@@ -5,11 +5,12 @@ from streamlit_folium import st_folium
 import unicodedata
 import altair as alt
 import os
+import importlib.util
 
 # ----------------------------
-# BASE DIRECTORY (IMPORTANT FIX)
+# BASE DIRECTORY (FIXED)
 # ----------------------------
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ----------------------------
 # PAGE CONFIG
@@ -53,7 +54,7 @@ st.markdown(
 )
 
 # ----------------------------
-# SIDEBAR MENU
+# SIDEBAR MENU (ONLY MENU)
 # ----------------------------
 st.sidebar.title("Menu")
 
@@ -72,26 +73,14 @@ page = st.sidebar.radio(
 )
 
 # ----------------------------
-# SAFE EXEC FUNCTION
+# PAGE LOADER
 # ----------------------------
 def run_page(path):
     full_path = os.path.join(BASE_DIR, path)
 
-    with open(full_path, encoding="utf-8") as f:
-        code = f.read()
-
-    exec_globals = {
-        "__name__": "__main__",
-        "pd": pd,
-        "st": st,
-        "folium": folium,
-        "st_folium": st_folium,
-        "unicodedata": unicodedata,
-        "alt": alt,
-        "os": os
-    }
-
-    exec(code, exec_globals)
+    spec = importlib.util.spec_from_file_location("page_module", full_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
 
 # ----------------------------
 # HOME PAGE
@@ -103,12 +92,16 @@ if page == "Home":
 
     with col2:
         st.image(
-            os.path.join(BASE_DIR, "DESIGNING.png"),
+            os.path.join(
+                BASE_DIR,
+                "pages",
+                "An Exploratory Study of Student Dietary Patterns and Nutrition for School Lunch Program Development in Basic Education Schools in Magway, Myanmar.jpg"
+            ),
             use_container_width=True
         )
 
 # ----------------------------
-# PAGE ROUTING (RELATIVE PATHS ONLY)
+# PAGE ROUTING
 # ----------------------------
 elif page == "Overview":
     run_page("pages/1_Overview.py")
@@ -122,11 +115,11 @@ elif page == "Diet Quality":
 elif page == "Behavioral Patterns":
     run_page("pages/4_Behavioral_Patterns.py")
 
-elif page == "Socioeconomics Overview":
-    run_page("pages/6_Socioeconomics_Overview.py")
-
 elif page == "Health":
     run_page("pages/5_Health.py")
+
+elif page == "Socioeconomics Overview":
+    run_page("pages/6_Socioeconomics_Overview.py")
 
 elif page == "Inferential Analysis":
     run_page("pages/7_Inferential_Analysis.py")
