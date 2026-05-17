@@ -63,7 +63,7 @@ with col2:
     banner_path = os.path.join("pages", "banner.png")
 
     if os.path.exists(banner_path):
-        st.image(banner_path, use_container_width=True)
+        st.image(banner_path, width=700)
     else:
         st.error(f"Missing banner image: {banner_path}")
 
