@@ -81,7 +81,7 @@ col1, col2, col3 = st.columns([0.5, 3, 0.5])
 
 with col2:
     if os.path.exists(banner_path):
-        st.image(banner_path, use_container_width=True)
+        st.image(banner_path, width=700)
     else:
         st.error(f"Missing banner image: {banner_path}")
 # =========================================================
